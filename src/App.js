@@ -1,4 +1,4 @@
-import { Suspense, useRef } from "react";
+import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas } from "react-three-fiber";
 import { Physics, useBox } from "@react-three/cannon";
 import "./App.css";
@@ -7,9 +7,32 @@ import Ground from "./component/Ground";
 import Sun from "./component/Sun";
 import Bhk from "./component/Bhk";
 import Vr from "./component/Vr";
+import ClipLoader from "react-spinners/ClipLoader";
+
+const override = {
+  display: "block",
+  alignItems: 'center',
+  justifyContent: 'center',
+  margin: "0 auto",  
+};
 function App() {
+  const [loading,setLoading]= useState(false);
+
+  useEffect(()=>{
+    setLoading(true)
+    setTimeout(() =>{
+    setLoading(false)
+    },8000)
+  },[])
   return (
-    <div style={{ height: "100vh", width: "100vw", background: "black" }}>
+    
+        <div style={{ height: "100vh",  alignItems: 'center',
+        justifyContent: 'center', display: 'flex', width: "100vw", background: "black" }}>
+      {
+        loading ?
+
+        <ClipLoader color={"#F37A24"} loading={loading} position={"center"} cssOverride={override}  size={150} />
+        :
       <Canvas camera={{ position: [7, 7, 7] }} shadowMap>
         <Orbit />
         {/* <Sun position={[0, 6, 6]} /> */}
@@ -25,7 +48,8 @@ function App() {
           {/* <Ground /> */}
         </Physics>
       </Canvas>
-    </div>
+      }
+    </div>    
   );
 }
 
