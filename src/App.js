@@ -9,12 +9,25 @@ import Bhk from "./component/Bhk";
 import Vr from "./component/Vr";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const override = {
-  display: "block",
-  alignItems: 'center',
-  justifyContent: 'center',
-  margin: "0 auto",  
-};
+// const override = {
+//   display: "block",
+//   alignItems: 'center',
+//   justifyContent: 'center',
+//   margin: "0 auto",  
+// };
+
+
+const numb = document.querySelector(".numb");
+let counter = 0;
+console.log(counter);
+setInterval(()=>{
+  if(counter === 100){
+    clearInterval();
+  }else{
+    counter+=1;
+    numb.textContent = counter + "%";
+  }
+}, 80);
 function App() {
   const [loading,setLoading]= useState(false);
 
@@ -22,8 +35,11 @@ function App() {
     setLoading(true)
     setTimeout(() =>{
     setLoading(false)
-    },8000)
+    },10000)
   },[])
+
+  
+  
   return (
     
         <div style={{ height: "100vh",  alignItems: 'center',
@@ -31,7 +47,25 @@ function App() {
       {
         loading ?
 
-        <ClipLoader color={"#F37A24"} loading={loading} position={"center"} cssOverride={override}  size={150} />
+        // <ClipLoader color={"#F37A24"} loading={loading} position={"center"} cssOverride={override}  size={150} />
+        <div class="circular">
+            <div class="inner"></div>
+            <div class="outer"></div>
+            <div class="numb">
+               
+            </div>
+            <div class="circle">
+               <div class="dot">
+                  <span></span>
+               </div>
+               <div class="bar left">
+                  <div class="progress"></div>
+               </div>
+               <div class="bar right">
+                  <div class="progress"></div>
+               </div>
+            </div>
+         </div>
         :
       <Canvas camera={{ position: [7, 7, 7] }} shadowMap>
         <Orbit />
@@ -48,7 +82,7 @@ function App() {
           {/* <Ground /> */}
         </Physics>
       </Canvas>
-      }
+}
     </div>    
   );
 }
